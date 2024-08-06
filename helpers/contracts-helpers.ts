@@ -145,7 +145,7 @@ export const linkBytecode = (artifact: BuidlerArtifact | Artifact, libraries: an
 };
 
 export const getParamPerNetwork = <T>(param: iParamsPerNetwork<T>, network: eNetwork) => {
-  const { main, ropsten, kovan, coverage, buidlerevm, tenderly, goerli } =
+  const { main, ropsten, kovan, coverage, buidlerevm, tenderly, goerli, holesky, piccadilly } =
     param as iEthereumParamsPerNetwork<T>;
   const { matic, mumbai } = param as iPolygonParamsPerNetwork<T>;
   const { xdai } = param as iXDaiParamsPerNetwork<T>;
@@ -181,6 +181,10 @@ export const getParamPerNetwork = <T>(param: iParamsPerNetwork<T>, network: eNet
       return fuji;
     case eEthereumNetwork.goerli:
       return goerli;
+    case eEthereumNetwork.holesky:
+      return holesky;
+    case eEthereumNetwork.piccadilly:
+      return piccadilly;
   }
 };
 

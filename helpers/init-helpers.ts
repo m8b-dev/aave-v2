@@ -160,13 +160,20 @@ export const initReservesByHelper = async (
   const configurator = await getLendingPoolConfiguratorProxy();
 
   console.log(`- Reserves initialization in ${chunkedInitInputParams.length} txs`);
+  // console.log(chunkedInitInputParams);
   for (let chunkIndex = 0; chunkIndex < chunkedInitInputParams.length; chunkIndex++) {
-    const tx3 = await waitForTx(
-      await configurator.batchInitReserve(chunkedInitInputParams[chunkIndex])
-    );
-
-    console.log(`  - Reserve ready for: ${chunkedSymbols[chunkIndex].join(', ')}`);
-    console.log('    * gasUsed', tx3.gasUsed.toString());
+    try {
+      // console.log(`- Initializing chunk ${chunkIndex + 1} of ${chunkedInitInputParams.length}`);
+      // console.log(chunkedInitInputParams[chunkIndex]);
+      const tx3 = await waitForTx(
+        await configurator.batchInitReserve(chunkedInitInputParams[chunkIndex])
+      );
+      console.log(`  - Reserve ready for: ${chunkedSymbols[chunkIndex].join(', ')}`);
+      console.log('    * gasUsed', tx3.gasUsed.toString());
+    } catch (e) {
+      console.log('Error initializing reserves in chunk', chunkIndex);
+      console.log(e as string);
+    }
   }
 };
 

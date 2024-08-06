@@ -2,6 +2,9 @@ import { task } from 'hardhat/config';
 import { eContractid } from '../../helpers/types';
 import { deployUiPoolDataProviderV2V3 } from '../../helpers/contracts-deployments';
 import { chainlinkAggregatorProxy, chainlinkEthUsdAggregatorProxy } from '../../helpers/constants';
+import { getFirstSigner, getLendingPoolAddressesProvider } from '../../helpers/contracts-getters';
+import { LendingPoolAddressesProviderFactory } from '../../types';
+import { DRE, getDb } from '../../helpers/misc-utils';
 
 task(`deploy-${eContractid.UiPoolDataProviderV2V3}`, `Deploys the UiPoolDataProviderV2V3 contract`)
   .addFlag('verify', 'Verify UiPoolDataProviderV2V3 contract via Etherscan API.')
@@ -27,5 +30,33 @@ task(`deploy-${eContractid.UiPoolDataProviderV2V3}`, `Deploys the UiPoolDataProv
       verify
     );
 
+    //
+    // // connect to the deployed UiPoolDataProviderV2V3 contract
+    // const UiPoolDataProviderV2V3Contract = await localBRE.ethers.getContractFactory(
+    //   eContractid.UiPoolDataProviderV2V3
+    // );
+    // const uiPoolDataProviderV2V3 = await UiPoolDataProviderV2V3Contract.attach(
+    //   UiPoolDataProviderV2V3.address
+    // );
+    //
+
+    // const lendingPoolAddressesProvider = await getLendingPoolAddressesProvider();
+    // // attach to the LendingPoolAddressesProvider contract
+    //
+    // const lendingPool = await lendingPoolAddressesProvider.getLendingPool();
+    //
+    // const list1 = lendingPoolAddressesProvider.getReservesList();
+    // console.log('LendingPoolAddressesProvider.getReservesList() result:', list1);
+    console.log('UiPoolDataProviderV2V3 deployed at:', UiPoolDataProviderV2V3.address);
+
+    const list2 = await UiPoolDataProviderV2V3.getReservesList(
+      '0xA85847c2A1d8143A878afac8D7FF7E8aFAF92e4c'
+    );
+    console.log('UiPoolDataProviderV2V3.getReservesList() result:', list2);
+
+    const data = await UiPoolDataProviderV2V3.getReservesData(
+      '0xA85847c2A1d8143A878afac8D7FF7E8aFAF92e4c'
+    );
+    // console.log('UiPoolDataProviderV2V3.getReserveData() result:', data);
     console.log('UiPoolDataProviderV2V3 deployed at:', UiPoolDataProviderV2V3.address);
   });

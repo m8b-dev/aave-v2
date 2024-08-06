@@ -37,6 +37,12 @@ export const NETWORKS_RPC_URL: iParamsPerNetwork<string> = {
   [eEthereumNetwork.kovan]: ALCHEMY_KEY
     ? `https://eth-kovan.alchemyapi.io/v2/${ALCHEMY_KEY}`
     : `https://kovan.infura.io/v3/${INFURA_KEY}`,
+  [eEthereumNetwork.holesky]: ALCHEMY_KEY
+    ? `https://eth-holesky.g.alchemy.com/v2/${ALCHEMY_KEY}`
+    : `https://kovan.infura.io/v3/${INFURA_KEY}`,
+  [eEthereumNetwork.piccadilly]: ALCHEMY_KEY
+    ? `https://rpc1.piccadilly.autonity.org/`
+    : `https://kovan.infura.io/v3/${INFURA_KEY}`,
   [eEthereumNetwork.ropsten]: ALCHEMY_KEY
     ? `https://eth-ropsten.alchemyapi.io/v2/${ALCHEMY_KEY}`
     : `https://ropsten.infura.io/v3/${INFURA_KEY}`,
@@ -60,6 +66,8 @@ export const NETWORKS_RPC_URL: iParamsPerNetwork<string> = {
 
 export const NETWORKS_DEFAULT_GAS: iParamsPerNetwork<number> = {
   [eEthereumNetwork.kovan]: 3 * GWEI,
+  [eEthereumNetwork.holesky]: 3 * GWEI,
+  [eEthereumNetwork.piccadilly]: 1 * GWEI,
   [eEthereumNetwork.ropsten]: 65 * GWEI,
   [eEthereumNetwork.main]: 65 * GWEI,
   [eEthereumNetwork.coverage]: 65 * GWEI,
@@ -76,6 +84,8 @@ export const NETWORKS_DEFAULT_GAS: iParamsPerNetwork<number> = {
 
 export const BLOCK_TO_FORK: iParamsPerNetwork<number | undefined> = {
   [eEthereumNetwork.main]: 12406069,
+  [eEthereumNetwork.holesky]: undefined,
+  [eEthereumNetwork.piccadilly]: undefined,
   [eEthereumNetwork.kovan]: undefined,
   [eEthereumNetwork.ropsten]: undefined,
   [eEthereumNetwork.coverage]: undefined,

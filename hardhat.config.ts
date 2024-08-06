@@ -37,6 +37,7 @@ const HARDFORK = 'istanbul';
 const ETHERSCAN_KEY = process.env.ETHERSCAN_KEY || '';
 const MNEMONIC_PATH = "m/44'/60'/0'/0";
 const MNEMONIC = process.env.MNEMONIC || '';
+const PRIVATE_KEY = process.env.PRIVATE_KEY || '';
 const UNLIMITED_BYTECODE_SIZE = process.env.UNLIMITED_BYTECODE_SIZE === 'true';
 
 // Prevent to load scripts before compilation and typechain
@@ -68,6 +69,17 @@ const getCommonNetworkConfig = (networkName: eNetwork, networkId: number) => ({
     initialIndex: 0,
     count: 20,
   },
+});
+
+const getCommonNetworkConfigWithPriKey = (networkName: eNetwork, networkId: number) => ({
+  url: NETWORKS_RPC_URL[networkName],
+  hardfork: HARDFORK,
+  blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
+  gasMultiplier: DEFAULT_GAS_MUL,
+  gasPrice: NETWORKS_DEFAULT_GAS[networkName],
+  chainId: networkId,
+  accounts: [PRIVATE_KEY, PRIVATE_KEY, PRIVATE_KEY],
+  timeout: 0,
 });
 
 let forkMode;
@@ -109,6 +121,8 @@ const buidlerConfig: HardhatUserConfig = {
       chainId: COVERAGE_CHAINID,
     },
     kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, 42),
+    holesky: getCommonNetworkConfigWithPriKey(eEthereumNetwork.holesky, 17000),
+    piccadilly: getCommonNetworkConfigWithPriKey(eEthereumNetwork.piccadilly, 65100003),
     ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, 3),
     main: getCommonNetworkConfig(eEthereumNetwork.main, 1),
     tenderly: getCommonNetworkConfig(eEthereumNetwork.tenderly, 3030),

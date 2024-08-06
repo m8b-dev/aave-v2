@@ -35,6 +35,10 @@ task('aave:dev', 'Deploy development enviroment')
     console.log('6. Initialize lending pool');
     await localBRE.run('dev:initialize-lending-pool', { verify, pool: POOL_NAME });
 
+    console.log('7. Deploy UI helpers');
+    await localBRE.run('deploy-UiPoolDataProviderV2V3', { verify });
+    await localBRE.run('deploy-UiIncentiveDataProviderV2V3', { verify });
+
     console.log('\nFinished migration');
     printContracts();
   });
