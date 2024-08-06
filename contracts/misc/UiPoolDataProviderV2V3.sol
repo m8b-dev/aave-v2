@@ -177,8 +177,12 @@ contract UiPoolDataProviderV2V3 is IUiPoolDataProviderV3 {
     BaseCurrencyInfo memory baseCurrencyInfo;
 
     /////////////////////////////
-    // TEMPORARY DISABLED BASE CURRENCY INFO
+    // TEMPORARY MOCKED BASE CURRENCY INFO
     /////////////////////////////
+    baseCurrencyInfo.marketReferenceCurrencyUnit = 1000000000000000000;
+    baseCurrencyInfo.marketReferenceCurrencyPriceInUsd = 27059606105;
+    baseCurrencyInfo.networkBaseTokenPriceInUsd = 27059606105;
+    baseCurrencyInfo.networkBaseTokenPriceDecimals = 8;
 
     //    baseCurrencyInfo.networkBaseTokenPriceInUsd = networkBaseTokenPriceInUsdProxyAggregator
     //      .latestAnswer();
